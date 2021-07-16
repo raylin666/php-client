@@ -31,8 +31,8 @@ interface ClientFactoryInterface
     public function getSockType(): int;
 
     /**
-     * 获取 Client , 比如 \Swoole\Coroutine\Client | \Swoole\Client
-     * @return \Swoole\Client|\Swoole\Coroutine\Client
+     * 获取客户端
+     * @return SwooleClientInterface
      */
-    public function getClient();
+    public function getClient(): SwooleClientInterface;
 }

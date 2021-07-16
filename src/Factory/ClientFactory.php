@@ -11,7 +11,8 @@
 
 namespace Raylin666\Client\Factory;
 
-use Swoole\Client;
+use Raylin666\Client\Contract\SwooleClientInterface;
+use Raylin666\Client\Swoole\SwooleClient;
 
 /**
  * Class ClientFactory
@@ -20,12 +21,12 @@ use Swoole\Client;
 class ClientFactory extends ClientFactoryAbstract
 {
     /**
-     * @return Client
+     * @return SwooleClientInterface
      */
-    protected function newSwooleClient(): Client
+    protected function newSwooleClient(): SwooleClientInterface
     {
         // TODO: Implement newSwooleClient() method.
 
-        return new Client($this->sock_type, SWOOLE_SOCK_SYNC);
+        return new SwooleClient($this->sock_type);
     }
 }

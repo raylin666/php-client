@@ -12,8 +12,9 @@
 namespace Raylin666\Client\Factory;
 
 use Raylin666\Client\Contract\ClientFactoryInterface;
-use Swoole\Client as SwooleClient;
-use Swoole\Coroutine\Client as SwooleCoroutineClient;
+use Raylin666\Client\Contract\SwooleClientInterface;
+use Raylin666\Client\Swoole\SwooleClient;
+use Raylin666\Client\Swoole\SwooleCoroutineClient;
 
 /**
  * Class ClientFactoryAbstract
@@ -25,11 +26,10 @@ abstract class ClientFactoryAbstract implements ClientFactoryInterface
      * Socket 类型
      * @var int
      */
-    protected $sock_type = SWOOLE_SOCK_TCP | SWOOLE_KEEP;
+    protected $sock_type = SWOOLE_SOCK_TCP;
 
     /**
-     * 客户端
-     * \Swoole\Coroutine\Client | \Swoole\Client
+     * 客户端 SwooleClient|SwooleCoroutineClient
      * @var
      */
     protected $client;
@@ -59,14 +59,14 @@ abstract class ClientFactoryAbstract implements ClientFactoryInterface
     }
 
     /**
-     * 获取 Client , 比如 \Swoole\Coroutine\Client | \Swoole\Client
-     * @return mixed|SwooleClient|SwooleCoroutineClient
+     * 获取客户端
+     * @return SwooleClient|SwooleCoroutineClient
      */
-    public function getClient()
+    public function getClient(): SwooleClientInterface
     {
         // TODO: Implement get() method.
 
-        if (($this->client instanceof SwooleClient) || ($this->client instanceof SwooleCoroutineClient)) {
+        if ($this->client instanceof SwooleClientInterface) {
             return $this->client;
         }
 
@@ -75,8 +75,8 @@ abstract class ClientFactoryAbstract implements ClientFactoryInterface
     }
 
     /**
-     * 创建 Client , 比如 \Swoole\Coroutine\Client | \Swoole\Client
-     * @return mixed
+     * 创建客户端 , 比如 SwooleClient|SwooleCoroutineClient
+     * @return SwooleClientInterface
      */
-    abstract protected function newSwooleClient();
+    abstract protected function newSwooleClient(): SwooleClientInterface;
 }

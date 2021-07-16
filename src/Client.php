@@ -36,8 +36,9 @@ class Client implements ClientInterface
 
     /**
      * 实例 Client 客户端
+     * @return ClientInterface
      */
-    public function __invoke()
+    public function __invoke(): ClientInterface
     {
         // TODO: Implement __invoke() method.
 
@@ -46,6 +47,8 @@ class Client implements ClientInterface
         } else {
             $this->clientFactory = new ClientFactory();
         }
+
+        return $this;
     }
 
     /**

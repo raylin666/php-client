@@ -9,24 +9,23 @@
 // | Author: kaka梦很美 <1099013371@qq.com>
 // +----------------------------------------------------------------------
 
-namespace Raylin666\Client\Factory;
+namespace Raylin666\Client\Swoole;
 
-use Raylin666\Client\Contract\SwooleClientInterface;
-use Raylin666\Client\Swoole\SwooleCoroutineClient;
+use Raylin666\Client\Factory\ClientAbstract;
+use Swoole\Client;
 
 /**
- * Class ClientCoroutineFactory
- * @package Raylin666\Client\Factory
+ * Class SwooleClient
+ * @package Raylin666\Client\Swoole
  */
-class ClientCoroutineFactory extends ClientFactoryAbstract
+class SwooleClient extends ClientAbstract
 {
     /**
-     * @return SwooleClientInterface
+     * SwooleClient constructor.
+     * @param int $sock_type
      */
-    protected function newSwooleClient(): SwooleClientInterface
+    public function __construct(int $sock_type)
     {
-        // TODO: Implement newSwooleClient() method.
-
-        return new SwooleCoroutineClient($this->sock_type);
+        $this->client = new Client($sock_type, SWOOLE_SOCK_SYNC);
     }
 }
