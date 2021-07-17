@@ -21,10 +21,9 @@ use Swoole\Coroutine\Client;
 class SwooleCoroutineClient extends ClientAbstract
 {
     /**
-     * SwooleCoroutineClient constructor.
      * @param int $sock_type
      */
-    public function __construct(int $sock_type)
+    public function __initialize(int $sock_type)
     {
         $this->client = new Client($sock_type);
     }

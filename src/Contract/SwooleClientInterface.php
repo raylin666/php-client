@@ -11,6 +11,8 @@
 
 namespace Raylin666\Client\Contract;
 
+use Raylin666\Client\Swoole\SwooleClientOptions;
+
 /**
  * Interface SwooleClientInterface
  * @package Raylin666\Client\Contract
@@ -19,9 +21,9 @@ interface SwooleClientInterface
 {
     /**
      * 设置客户端参数 (必须在 connect 前调用)
-     * @param array $settings
+     * @param SwooleClientOptions
      */
-    public function set(array $settings);
+    public function set(SwooleClientOptions $options);
 
     /**
      * 连接客户端
@@ -30,7 +32,7 @@ interface SwooleClientInterface
      * @param float  $timeout
      * @return bool
      */
-    public function connect(string $host, int $port, $timeout = 0.5): bool;
+    public function connect(string $host, int $port, $timeout = 5.0): bool;
 
     /**
      * 是否已连接客户端
@@ -70,19 +72,19 @@ interface SwooleClientInterface
 
     /**
      * 发送数据到远程服务器，必须在建立连接后，才可向对端发送数据
-     * @param string $data
+     * @param $data
      * @return int|false
      */
-    public function send(string $data);
+    public function send($data);
 
     /**
      * 向任意 IP:PORT 的主机发送 UDP 数据包，仅支持 SWOOLE_SOCK_UDP/SWOOLE_SOCK_UDP6 类型
      * @param string $ip
      * @param int $port
-     * @param string $data
+     * @param     $data
      * @return bool
      */
-    public function sendto(string $ip, int $port, string $data): bool;
+    public function sendto(string $ip, int $port, $data): bool;
 
     /**
      * 发送文件到服务器，本函数是基于 sendfile 操作系统调用实现
@@ -94,9 +96,10 @@ interface SwooleClientInterface
      * 从服务器端接收数据
      * @param int $size
      * @param int $flags
+     * @param float $timeout
      * @return string|false
      */
-    public function recv(int $size = 65535, int $flags = 0);
+    public function recv(int $size = 65535, int $flags = 0, float $timeout = 0);
 
     /**
      * 关闭连接
@@ -116,4 +119,11 @@ interface SwooleClientInterface
      * @return int
      */
     public function errCode(): int;
+
+    /**
+     * 设置网络传输
+     * @param NetworkInterface|null $network
+     * @return SwooleClientInterface
+     */
+    public function withNetWorkHandler(?NetworkInterface $network): SwooleClientInterface;
 }

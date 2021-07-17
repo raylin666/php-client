@@ -15,6 +15,7 @@ use Raylin666\Client\Contract\ClientFactoryInterface;
 use Raylin666\Client\Contract\ClientInterface;
 use Raylin666\Client\Factory\ClientCoroutineFactory;
 use Raylin666\Client\Factory\ClientFactory;
+use Raylin666\Utils\Coroutine\Coroutine;
 
 /**
  * Class Client
@@ -24,15 +25,9 @@ class Client implements ClientInterface
 {
     /**
      * 客户端工厂类
-     * @var
+     * @var null|ClientFactoryInterface
      */
     protected $clientFactory;
-
-    /**
-     * 是否协程客户端
-     * @var bool
-     */
-    protected $isCoroutineClient = false;
 
     /**
      * 实例 Client 客户端
@@ -42,7 +37,7 @@ class Client implements ClientInterface
     {
         // TODO: Implement __invoke() method.
 
-        if ($this->isCoroutineClient) {
+        if (Coroutine::inCoroutine()) {
             $this->clientFactory = new ClientCoroutineFactory();
         } else {
             $this->clientFactory = new ClientFactory();
@@ -52,30 +47,8 @@ class Client implements ClientInterface
     }
 
     /**
-     * @param bool $isCoroutineClient
-     * @return ClientInterface
-     */
-    public function withCoroutineClient(bool $isCoroutineClient): ClientInterface
-    {
-        // TODO: Implement withCoroutineClient() method.
-
-        $this->isCoroutineClient = $isCoroutineClient;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCoroutineClient(): bool
-    {
-        // TODO: Implement isCoroutineClient() method.
-
-        return $this->isCoroutineClient;
-    }
-
-    /**
      * 获取客户端工厂
-     * @return ClientFactoryInterface
+     * @return null|ClientFactoryInterface
      */
     public function getFactory(): ClientFactoryInterface
     {

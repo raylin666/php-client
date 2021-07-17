@@ -18,19 +18,6 @@ namespace Raylin666\Client\Contract;
 interface ClientInterface
 {
     /**
-     * 设置协程
-     * @param bool $isCoroutineClient
-     * @return ClientInterface
-     */
-    public function withCoroutineClient(bool $isCoroutineClient): ClientInterface;
-
-    /**
-     * 是否协程客户端
-     * @return bool
-     */
-    public function isCoroutineClient(): bool;
-
-    /**
      * 获取客户端工厂
      * @return ClientFactoryInterface
      */

@@ -9,22 +9,25 @@
 // | Author: kaka梦很美 <1099013371@qq.com>
 // +----------------------------------------------------------------------
 
-namespace Raylin666\Client\Swoole;
-
-use Raylin666\Client\Factory\ClientAbstract;
-use Swoole\Client;
+namespace Raylin666\Client\Contract;
 
 /**
- * Class SwooleClient
- * @package Raylin666\Client\Swoole
+ * Interface NetworkInterface
+ * @package Raylin666\Client\Contract
  */
-class SwooleClient extends ClientAbstract
+interface NetworkInterface
 {
     /**
-     * @param int $sock_type
+     * 网络传输加密
+     * @param $data
+     * @return mixed
      */
-    public function __initialize(int $sock_type)
-    {
-        $this->client = new Client($sock_type, SWOOLE_SOCK_SYNC);
-    }
+    public function encode($data);
+
+    /**
+     * 网络传输解密
+     * @param $data
+     * @return mixed
+     */
+    public function decode($data);
 }
