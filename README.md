@@ -16,6 +16,27 @@ composer require "raylin666/client"
 
 ### 使用方式
 
+```php
+<?php
+
+require_once 'vendor/autoload.php';
+
+go(function () {
+    $client = new Raylin666\Client\Client;
+    $swooleClient = $client()->getFactory()->getClient();
+
+    $options = new \Raylin666\Client\Swoole\SwooleClientOptions;
+    $swooleClient->set($options);
+
+    $swooleClient->connect('127.0.0.1', 9903);
+    $swooleClient->send(['a' => 'c']);
+    $result = $swooleClient->recv();
+    var_dump($result);
+    $swooleClient->close();
+});
+
+\Swoole\Event::wait();
+```
 
 ## 更新日志
 
