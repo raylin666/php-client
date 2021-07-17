@@ -25,7 +25,7 @@ go(function () {
     $client = new Raylin666\Client\Client;
     $swooleClient = $client()->getFactory()->getClient();
 
-    $options = new \Raylin666\Client\Swoole\SwooleClientOptions;
+    $options = new Raylin666\Client\Swoole\SwooleClientOptions;
     $swooleClient->set($options);
 
     $swooleClient->connect('127.0.0.1', 9903);
